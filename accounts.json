@@ -1,0 +1,24 @@
+{
+  "accounts": [
+    {},
+    {
+      "username": "ok",
+      "email": "afpaj@",
+      "password": "pwd123"
+    },
+    {},
+    {},
+    {},
+    {
+      "username": "newUser",
+      "email": "spaj@hotmail",
+      "password": "fwd123"
+    },
+    {},
+    {
+      "username": "newUser2",
+      "email": "spaj@hotmail2",
+      "password": "fwd1232"
+    }
+  ]
+}
