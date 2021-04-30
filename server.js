@@ -10,9 +10,10 @@ const app = express();
 
 app.use(express.json());
 
-//Initirerar vår databas med en tom array
-
-
+/*Hämtar menu.JSON*/
+app.get('/api/coffee', (request, response) => {
+  response.json(database);
+});
 
 app.listen(8001, () => {
   console.log('Server started');
