@@ -10,18 +10,23 @@ const menuDatabase = lowdb(menuAdapter);
 const accountAdapter= new FileSync("accounts.json");
 const accountDatabase = lowdb(accountAdapter);
 
+const ordersAdapter= new FileSync("orders.json");
+const ordersDatabase = lowdb(ordersAdapter);
+
 const app = express();
 app.use(express.json());
 app.use(express.static('frontend'));
 
 
 let orders = [];
+let accounts = [];
 
 /*Hämtar menu.JSON*/
 app.get("/api/coffee", (request, response) => {
   response.json(menuDatabase);
 });
 
+/*Hämtar orders.JSON*/
 app.get('/api/order', (request, response) => {
   response.json(orders);
 });
@@ -29,6 +34,25 @@ app.get('/api/order', (request, response) => {
 /*Lägger till order*/
 app.post('/api/order', (request, response) => {
   const orderItem = request.body;
+  console.log("Order att lägga till:", orderItem);
+  const itemOnMenu = menuDatabase
+    .get("menu")
+    .find({ title: orderItem.title })
+    .value();
+    console.log("Item on Menu", itemOnMenu);
+
+  const result = {
+    allowed: true,
+    itemOnMenu: true,
+  };
+  if (!itemOnMenu) {
+      result.itemOnMenu = false;
+      console.log("Sorry, the item you want is not on the menu. Try again.")
+    } 
+  if (result.itemOnMenu) {
+    ordersDatabase.get("orders").push(orderItem.title).write();
+    result.allowed = true;
+  
   orderItem.orderID = nanoid(5); 
   function randomInt(min, max){
     return Math.random() * (min , max)+min;
@@ -36,14 +60,15 @@ app.post('/api/order', (request, response) => {
   let Idag = new Date();
   let date = new Date();
   date.setDate(date.getDate() + randomInt(1, 28));
-  orderItem.eta =   moment(date).format('dddd, MMMM Do YYYY, h a')
-  orderItem.date =   moment().format('dddd, MMMM Do YYYY, h a')
+  orderItem.eta = moment(date).format('dddd, MMMM Do YYYY, h a')
+  orderItem.date = moment().format('dddd, MMMM Do YYYY, h a')
 
-  console.log('Ditt orderID är:', orderItem.orderid);
+  console.log('Din produkt är:', orderItem.title);
+  console.log('Ditt orderID är:', orderItem.orderID);
   console.log('Ordern var lagd:', orderItem.date);
   console.log('ETA:', orderItem.eta);
-
   orders.push(orderItem);
+}
   //Vad ska vi skicka tillbaka för svar?
   response.json(orderItem);
 });
