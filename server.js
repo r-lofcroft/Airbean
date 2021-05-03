@@ -104,6 +104,13 @@ app.post("/api/account", (request, response) => {
     result.emailInUse = true;
   }
   if (!result.usernameInUse && !result.emailInUse) {
+    /*Automatisk inkrement till UserID*/
+    let myObject = accountDatabase
+    let count = Object.keys(myObject).length;
+    let int;
+    for(int = 0; int < count; int++);
+    account.accountID = int;
+    /*Postar till databasen*/
     accountDatabase.get("accounts").push(account).write();
     result.allowed = true;
   }
