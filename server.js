@@ -121,6 +121,28 @@ app.post("/api/account", (request, response) => {
   response.json(result);
 });
 
+/*Eventuellt LOGIN system utifall det behövs. Oklart ännu*/
+// app.post("/api/login", (request, response) => {
+//   const loginCred = request.body;
+//   console.log("loginCred:", loginCred);
+
+//   const compareCred = accountDatabase.get("accounts")
+//     .find({ username: loginCred.username })
+//     .value();
+//   console.log("compareCred:", compareCred);
+
+//   const result = {
+//     success: false
+//   }
+
+//   //Ifall användarnamn och lösenord är samma som i databasen
+//   if (compareCred) {
+//     result.success = true;
+//   }
+
+//   response.json(result);
+// });
+
 app.listen(8001, () => {
   console.log("Server started");
 });
