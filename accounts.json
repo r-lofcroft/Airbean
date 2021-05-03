@@ -1,8 +1,29 @@
 {
   "accounts": [
     {
-      "username": "kaffepojk",
-      "email": "Bryggkaff"
+      "username": "testuser7",
+      "email": "testuser1@email.7",
+      "accountID": 10
+    },
+    {
+      "username": "bengt",
+      "email": "bengan25@we2.se",
+      "accountID": 10
+    },
+    {
+      "username": "bengst",
+      "email": "bengan25@we2.seass",
+      "accountID": 10
+    },
+    {
+      "username": "bengsawdt",
+      "email": "bengan25@we2.seasaws",
+      "accountID": 3
+    },
+    {
+      "username": "bengsawdawdawdt",
+      "email": "bengan25@we2.sawdawdeasaws",
+      "accountID": 4
     }
   ]
 }

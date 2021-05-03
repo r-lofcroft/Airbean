@@ -59,7 +59,9 @@ app.post('/api/order', (request, response) => {
   date.setDate(date.getDate() + randomInt(1, 28));
   orders.eta = moment(date).format('dddd, MMMM Do YYYY, h a')
   orders.date = moment().format('dddd, MMMM Do YYYY, h a')
+  
 
+  console.log('Ditt userID är:', orders.userID)
   console.log('Din produkt är:', orders.title);
   console.log('Ditt orderID är:', orders.orderID);
   console.log('Ordern var lagd:', orders.date);
@@ -105,7 +107,9 @@ app.post("/api/account", (request, response) => {
   }
   if (!result.usernameInUse && !result.emailInUse) {
     /*Automatisk inkrement till UserID*/
-    let myObject = accountDatabase
+    const myObject = accountDatabase
+    .get("accounts")
+    .value();
     let count = Object.keys(myObject).length;
     let int;
     for(int = 0; int < count; int++);
