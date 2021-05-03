@@ -18,9 +18,6 @@ app.use(express.json());
 app.use(express.static('frontend'));
 
 
-let orders = [];
-let accounts = [];
-
 /*Hämtar menu.JSON*/
 app.get("/api/coffee", (request, response) => {
   response.json(menuDatabase);
@@ -28,16 +25,16 @@ app.get("/api/coffee", (request, response) => {
 
 /*Hämtar orders.JSON*/
 app.get('/api/order', (request, response) => {
-  response.json(orders);
+  response.json(ordersDatabase);
 });
 
 /*Lägger till order*/
 app.post('/api/order', (request, response) => {
-  const orderItem = request.body;
-  console.log("Order att lägga till:", orderItem);
+  const orders = request.body;
+  console.log("Order att lägga till:", orders);
   const itemOnMenu = menuDatabase
     .get("menu")
-    .find({ title: orderItem.title })
+    .find({ title: orders.title })
     .value();
     console.log("Item on Menu", itemOnMenu);
 
@@ -50,27 +47,27 @@ app.post('/api/order', (request, response) => {
       console.log("Sorry, the item you want is not on the menu. Try again.")
     } 
   if (result.itemOnMenu) {
-    ordersDatabase.get("orders").push(orderItem.title).write();
+    // ordersDatabase.get("orders").push(orders.title).write();
     result.allowed = true;
   
-  orderItem.orderID = nanoid(5); 
+  orders.orderID = nanoid(5); 
   function randomInt(min, max){
     return Math.random() * (min , max)+min;
   }
   let Idag = new Date();
   let date = new Date();
   date.setDate(date.getDate() + randomInt(1, 28));
-  orderItem.eta = moment(date).format('dddd, MMMM Do YYYY, h a')
-  orderItem.date = moment().format('dddd, MMMM Do YYYY, h a')
+  orders.eta = moment(date).format('dddd, MMMM Do YYYY, h a')
+  orders.date = moment().format('dddd, MMMM Do YYYY, h a')
 
-  console.log('Din produkt är:', orderItem.title);
-  console.log('Ditt orderID är:', orderItem.orderID);
-  console.log('Ordern var lagd:', orderItem.date);
-  console.log('ETA:', orderItem.eta);
-  orders.push(orderItem);
+  console.log('Din produkt är:', orders.title);
+  console.log('Ditt orderID är:', orders.orderID);
+  console.log('Ordern var lagd:', orders.date);
+  console.log('ETA:', orders.eta);
+  ordersDatabase.get("orders").push(orders).write();
 }
   //Vad ska vi skicka tillbaka för svar?
-  response.json(orderItem);
+  response.json(result);
 });
 
 
