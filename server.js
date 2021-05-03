@@ -59,7 +59,10 @@ app.post('/api/order', (request, response) => {
   date.setDate(date.getDate() + randomInt(1, 28));
   orders.eta = moment(date).format('dddd, MMMM Do YYYY, h a')
   orders.date = moment().format('dddd, MMMM Do YYYY, h a')
-  
+  /*Hämta activeAccount värde för att tilldela kontoID till beställningar.*/
+  orders.id = accountDatabase
+    .get("activeAccount")
+    .value();
 
   console.log('Ditt userID är:', orders.userID)
   console.log('Din produkt är:', orders.title);
@@ -68,7 +71,6 @@ app.post('/api/order', (request, response) => {
   console.log('ETA:', orders.eta);
   ordersDatabase.get("orders").push(orders).write();
 }
-  //Vad ska vi skicka tillbaka för svar?
   response.json(result);
 });
 
@@ -113,13 +115,26 @@ app.post("/api/account", (request, response) => {
     let count = Object.keys(myObject).length;
     let int;
     for(int = 0; int < count; int++);
-    account.accountID = int;
+    account.id = int;
     /*Postar till databasen*/
     accountDatabase.get("accounts").push(account).write();
+
+
+    /* Fungerar ej som tänkt, ändrar inte active account-värdet */
+    accountDatabase.get("activeAccount").assign({activeaccount: account.id}).write();
     result.allowed = true;
   }
   response.json(result);
 });
+
+/* Fungerar ej som tänkt, öppnar bara tom array */
+app.get("/api/order/:id", (request, response)=>{
+  const filterAccounts = accountDatabase.get('accounts').filter({ id: request.params.id }).value();
+  console.log(accountDatabase.get('accounts').filter({ id: request.params.id }).value())
+  console.log('FilterAccounts:', JSON.stringify(filterAccounts));
+  response.send(filterAccounts)
+})
+
 
 /*Eventuellt LOGIN system utifall det behövs. Oklart ännu*/
 // app.post("/api/login", (request, response) => {
