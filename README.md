@@ -1,1 +1,2 @@
 # Airbean
+NPM INSTALL
