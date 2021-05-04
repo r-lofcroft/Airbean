@@ -47,7 +47,6 @@ app.post('/api/order', (request, response) => {
       console.log("Sorry, the item you want is not on the menu. Try again.")
     } 
   if (result.itemOnMenu) {
-    // ordersDatabase.get("orders").push(orders.title).write();
     result.allowed = true;
   
   orders.orderID = nanoid(5); 
@@ -60,9 +59,9 @@ app.post('/api/order', (request, response) => {
   orders.eta = moment(date).format('dddd, MMMM Do YYYY, h a')
   orders.date = moment().format('dddd, MMMM Do YYYY, h a')
   /*Hämta activeAccount värde för att tilldela kontoID till beställningar.*/
-  orders.id = accountDatabase
+  orders.userID = JSON.stringify(accountDatabase
     .get("activeAccount")
-    .value();
+    .value())
 
   console.log('Ditt userID är:', orders.userID)
   console.log('Din produkt är:', orders.title);
@@ -82,6 +81,7 @@ app.get("/api/account", (request, response) => {
 
 /*Skapa nya konton*/ 
 app.post("/api/account", (request, response) => {
+
   const account = request.body;
   console.log("konto att lägga till:", account);
 
@@ -107,7 +107,7 @@ app.post("/api/account", (request, response) => {
   if (emailInUse) {
     result.emailInUse = true;
   }
-  if (!result.usernameInUse && !result.emailInUse) {
+  if (!result.usernameInUse && !result.emailInUse ) {
     /*Automatisk inkrement till UserID*/
     const myObject = accountDatabase
     .get("accounts")
@@ -120,29 +120,29 @@ app.post("/api/account", (request, response) => {
     accountDatabase.get("accounts").push(account).write();
 
 
-    /* Fungerar ej som tänkt, ändrar inte active account-värdet */
-    accountDatabase.get("activeAccount").assign({activeaccount: account.id}).write();
+    /* Sätter AccountID till det "aktiva" kontot*/
+    accountDatabase.set("activeAccount", account.id).write();
     result.allowed = true;
   }
   response.json(result);
 });
 
-/* Fungerar ej som tänkt, öppnar bara tom array */
+/*Filtrera userID på id params för att hitta alla ordrar på ett konto */
 app.get("/api/order/:id", (request, response)=>{
-  const filterAccounts = accountDatabase.get('accounts').filter({ id: request.params.id }).value();
-  console.log(accountDatabase.get('accounts').filter({ id: request.params.id }).value())
+  const filter = request.params.id
+  const filterAccounts = ordersDatabase.get('orders').filter({ userID: `${filter}` }).value();
   console.log('FilterAccounts:', JSON.stringify(filterAccounts));
   response.send(filterAccounts)
 })
 
 
-/*Eventuellt LOGIN system utifall det behövs. Oklart ännu*/
+/*Eventuellt LOGIN system för att kontrollera pwd & username funktionalitet*/
 // app.post("/api/login", (request, response) => {
 //   const loginCred = request.body;
 //   console.log("loginCred:", loginCred);
 
 //   const compareCred = accountDatabase.get("accounts")
-//     .find({ username: loginCred.username })
+//     .find({ username: loginCred.username, pwd: loginCred.password })
 //     .value();
 //   console.log("compareCred:", compareCred);
 
@@ -150,8 +150,8 @@ app.get("/api/order/:id", (request, response)=>{
 //     success: false
 //   }
 
-//   //Ifall användarnamn och lösenord är samma som i databasen
-//   if (compareCred) {
+// /* Kontroll */  
+// if (compareCred) {
 //     result.success = true;
 //   }
 

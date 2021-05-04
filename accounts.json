@@ -1,29 +1,51 @@
 {
+  "activeAccount": 7,
   "accounts": [
     {
       "username": "testuser7",
       "email": "testuser1@email.7",
-      "accountID": 10
+      "pwd": "1234156",
+      "id": 15
     },
     {
       "username": "bengt",
       "email": "bengan25@we2.se",
-      "accountID": 10
+      "pwd": "12343",
+      "id": 10
     },
     {
-      "username": "bengst",
-      "email": "bengan25@we2.seass",
-      "accountID": 10
+      "username": "Bryggisen",
+      "email": "email@fakeemail.com",
+      "pwd": "12349",
+      "id": 2
     },
     {
-      "username": "bengsawdt",
-      "email": "bengan25@we2.seasaws",
-      "accountID": 3
+      "username": "Bryggisenawd",
+      "email": "email@fakaw",
+      "pwd": "12348",
+      "id": 3
     },
     {
-      "username": "bengsawdawdawdt",
-      "email": "bengan25@we2.sawdawdeasaws",
-      "accountID": 4
+      "username": "Bryggisenawdawd",
+      "email": "email@fakawdw",
+      "pwd": "12346",
+      "id": 4
+    },
+    {
+      "username": "Cappu",
+      "email": "bengt@bent.se",
+      "pwd": "12345",
+      "id": 5
+    },
+    {
+      "username": "BengansKaffe",
+      "email": "Bengan@gen.se",
+      "pwd": "456",
+      "id": 6
+    },
+    {
+      "hej": "hej",
+      "id": 7
     }
   ]
 }
