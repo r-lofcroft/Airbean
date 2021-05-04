@@ -1,5 +1,5 @@
 {
-  "activeAccount": 7,
+  "activeAccount": 9,
   "accounts": [
     {
       "username": "testuser7",
@@ -46,6 +46,18 @@
     {
       "hej": "hej",
       "id": 7
+    },
+    {
+      "username": "tester",
+      "email": "test@test",
+      "pwd": "kdkdk",
+      "id": 8
+    },
+    {
+      "username": "test2er",
+      "email": "test@tes2t",
+      "pwd": "kdkdk2",
+      "id": 9
     }
   ]
 }

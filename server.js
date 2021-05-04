@@ -79,10 +79,10 @@ app.get("/api/account", (request, response) => {
   response.json(accountDatabase);
 });
 
-/*Skapa nya konton*/ 
+/*Skapa nya konton. {username:value}, {email:value}, {pwd:value}*/ 
 app.post("/api/account", (request, response) => {
-
   const account = request.body;
+  if(account.hasOwnProperty("username") && account.hasOwnProperty("email") && account.hasOwnProperty("pwd")){
   console.log("konto att lägga till:", account);
 
   const usernameInUse = accountDatabase
@@ -123,8 +123,12 @@ app.post("/api/account", (request, response) => {
     /* Sätter AccountID till det "aktiva" kontot*/
     accountDatabase.set("activeAccount", account.id).write();
     result.allowed = true;
-  }
+  } 
   response.json(result);
+} else {
+  console.log('Incorrect parameter')
+  response.json('Incorrect parameter')
+}
 });
 
 /*Filtrera userID på id params för att hitta alla ordrar på ett konto */
