@@ -17,6 +17,13 @@ const app = express();
 app.use(express.json());
 app.use(express.static('frontend'));
 
+//CORS-solution
+app.use(function(req, res, next){
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next()
+})
 
 /*Hämtar menu.JSON*/
 app.get("/api/coffee", (request, response) => {
