@@ -1,0 +1,27 @@
+{
+  "name": "airbean",
+  "version": "1.0.0",
+  "description": "NPM INSTALL",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "lowdb": "^1.0.0",
+    "moment": "^2.29.1",
+    "nanoid": "^3.1.22"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r-lofcroft/Airbean.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/r-lofcroft/Airbean/issues"
+  },
+  "homepage": "https://github.com/r-lofcroft/Airbean#readme"
+}
