@@ -35,7 +35,7 @@ app.get('/api/order', (request, response) => {
   response.json(ordersDatabase);
 });
 
-/*Lägger till order*/
+/*Lägger till order  expempel :"title": "Bryggkaffe"*/
 app.post('/api/order', (request, response) => {
   const orders = request.body;
   console.log("Order att lägga till:", orders);
@@ -148,26 +148,31 @@ app.get("/api/order/:id", (request, response)=>{
 
 
 /*Eventuellt LOGIN system för att kontrollera pwd & username funktionalitet*/
-// app.post("/api/login", (request, response) => {
-//   const loginCred = request.body;
-//   console.log("loginCred:", loginCred);
+app.post("/api/login", (request, response) => {
+  const loginCred = request.body;
+  console.log("loginCred:", loginCred);
 
-//   const compareCred = accountDatabase.get("accounts")
-//     .find({ username: loginCred.username, pwd: loginCred.password })
-//     .value();
-//   console.log("compareCred:", compareCred);
+  const compareCred = accountDatabase.get("accounts")
+    .find({ email: loginCred.email, pwd: loginCred.pwd })
+    .value();
+  console.log("compareCred:", compareCred);
 
-//   const result = {
-//     success: false
-//   }
+  const result = {
+    success: false
+  }
 
-// /* Kontroll */  
-// if (compareCred) {
-//     result.success = true;
-//   }
+/* Kontroll */  
+if (compareCred) {
+    result.success = true;
+    console.log(compareCred.id)
+    accountDatabase.set("activeAccount", compareCred.id).write();
+  }else {
+    console.log('Incorrect parameter')
+    response.json('Incorrect parameter')
+  }
 
-//   response.json(result);
-// });
+  response.json(result);
+});
 
 app.listen(8001, () => {
   console.log("Server started");
