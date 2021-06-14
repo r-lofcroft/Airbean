@@ -39,12 +39,14 @@ app.get('/api/order', (request, response) => {
 app.post('/api/order', (request, response) => {
   const orders = request.body;
   console.log("Order att lägga till:", orders);
+  for(let i=0; i<orders.length;i++){
+  }
   const itemOnMenu = menuDatabase
-    .get("menu")
-    .find({ title: orders.title })
-    .value();
-    console.log("Item on Menu", itemOnMenu);
-
+  .get("menu")
+  .find((menu)=> menu.title === orders[0].title)
+  .value();
+  console.log("Item on Menu", itemOnMenu);
+    
   const result = {
     allowed: true,
     itemOnMenu: true,
