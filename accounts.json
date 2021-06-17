@@ -1,17 +1,11 @@
 {
-  "activeAccount": 10,
+  "activeAccount": 4,
   "accounts": [
     {
       "username": "testuser7",
       "email": "testuser1@email.7",
       "pwd": "1234156",
       "id": 15
-    },
-    {
-      "username": "bengt",
-      "email": "bengan25@we2.se",
-      "pwd": "12343",
-      "id": 10
     },
     {
       "username": "Bryggisen",
@@ -64,6 +58,18 @@
       "email": "awd@awd",
       "pwd": "4a",
       "id": 10
+    },
+    {
+      "username": "Test Mctestsson",
+      "email": "testmctestsson@dummymail.com",
+      "pwd": "Biggo",
+      "id": 10
+    },
+    {
+      "username": "Boio Mcboiosson",
+      "email": "testuser@testusermail",
+      "pwd": "Wotuhavemedo",
+      "id": 11
     }
   ]
 }
